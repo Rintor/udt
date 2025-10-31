@@ -45,15 +45,15 @@ class DB
     public function fetchAll(string $table): array
     {
         if (! in_array($table, $this->allowedTables, true)) {
-            Logger::log("Неизвестная таблица: $table");
+            Logger::log("Неизвестная таблица: " . $table);
 
-            throw new InvalidArgumentException("Неизвестная таблица: $table");
+            throw new InvalidArgumentException("Неизвестная таблица: " . $table);
         }
 
         try {
             $stmt = $this->pdo->query("SELECT * FROM $table");
             $data = $stmt->fetchAll();
-            Logger::log("Получено " . count($data) . " записей из таблицы product");
+            Logger::log("Получено " . count($data) . " записей из таблицы " . $table);
 
             return $data;
         } catch (PDOException $e) {
