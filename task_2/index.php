@@ -1,7 +1,5 @@
 <?php
 
-// echo '<pre>' . print_r($headers, true) . '</pre>'; exit;
-
 $host = 'localhost';
 $db   = 'udt';
 $user = 'root';
@@ -41,6 +39,9 @@ $options = [
     PDO::ATTR_EMULATE_PREPARES   => false,
 ];
 
+$countAdded = 0;
+$countUpdated = 0;
+
 try {
     $pdo = new PDO($dsn, $user, $pass, $options);
 
@@ -51,9 +52,6 @@ try {
     $stmtSelect = $pdo->prepare($sqlSelect);
     $stmtInsert = $pdo->prepare($sqlInsert);
     $stmtUpdate = $pdo->prepare($sqlUpdate);
-
-    $countAdded = 0;
-    $countUpdated = 0;
 
     foreach ($products as $product) {
         $stmtSelect->execute([
